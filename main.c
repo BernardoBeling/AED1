@@ -8,26 +8,31 @@ struct pessoa{
     int idade,tel;
 };
 
-void apontaini(int* cont, int* i,int* scan){
+void apontaini(void* buffer,int* cont, int* i,int* scan){
     cont=buffer;
     i=cont+1;
     scan=i+1;
+    printf("Entrouaponta\n");
 }
 
 void main()
 {
     void *buffer;
-    int *cont,*i,*scan;
-    pessoa *p;
+    int *cont,*i,*num;
+    //struct pessoa *p;
 
     buffer=malloc(sizeof(int)*3);
-    apontaini(cont,i,buffer);
+    apontaini(buffer,cont,i,num);
 
     printf("1.Adicionar Pessoa\n2.Remover\n3.Mostrar\n");
-    scanf("%d",scan);
-    switch{
-    case 1:
-        cont++;
-        buffer=realloc(buffer,sizeof(int)*3+sizeof(pessoa)*cont);
+    scanf("%d",num);
+
+    switch(*num)
+    {
+        case 1:
+            printf("Entrou\n");
+            cont++;
+            buffer=realloc(buffer,sizeof(int)*3+(*cont*sizeof(struct pessoa)));
+            break;
     }
 }
