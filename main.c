@@ -47,8 +47,15 @@ void main()
                 *contstruct=*contstruct+1;
                 buffer=realloc(buffer,(sizeof(int)*3+sizeof(struct pessoa)*(*contstruct)));
                 aponta(&buffer,&menu,&i,&contstruct);
-                p=contstruct+*contstruct;
-                adiciona(p);
+                p=contstruct+1;
+                if(*contstruct==1)
+                    adiciona(p);
+                else
+                {
+                    for(*i=0;*i<*contstruct-*i;*i=*i+1)
+                        p=p+1;   
+                    adiciona(p);
+                }
                 printf("Registro adicionado!\n");
                 p=contstruct+1;
                 break;
