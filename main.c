@@ -52,6 +52,7 @@ void main()
                     adiciona(p);
                 else
                 {
+                    //funcionando
                     for(*i=0;*i<*contstruct-*i;*i=*i+1)
                         p=p+1;   
                     adiciona(p);
