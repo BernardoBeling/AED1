@@ -74,7 +74,7 @@ void main()
                 p2=p1+1;
                 for(*i=1;*i<=(*contstruct-*menu);*i=*i+1)
                 {
-                    *p1->nome=*p2->nome;
+                    strcpy(p1->nome,p2->nome);
                     p1->idade=p2->idade;
                     p1->matricula=p2->matricula;
                     p1=p1+1;
