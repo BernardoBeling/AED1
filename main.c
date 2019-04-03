@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-//buffer-> [menu|i|contstruct|..........]
+//buffer-> [menu|i|contstruct|pessoas...]
 
 struct pessoa
 {
@@ -19,7 +20,7 @@ void* aponta(void** buffer, int** menu, int** i, int** contstruct)
 void adiciona(struct pessoa* p)
 {
     printf("Digite o nome:");
-    scanf("%s",&p->nome);
+    scanf("%s",p->nome);
     printf("Digite a idade:");
     scanf("%d",&p->idade);
     printf("Digite a matricula:");
@@ -46,51 +47,58 @@ void main()
                 *contstruct=*contstruct+1;
                 buffer=realloc(buffer,(sizeof(int)*3+sizeof(struct pessoa)*(*contstruct)));
                 aponta(&buffer,&menu,&i,&contstruct);
-                p=contstruct+1;
+                p=(struct pessoa*)contstruct+1;
                 if(*contstruct==1)
                     adiciona(p);
                 else
                 {
-                    //funcionando
                     for(*i=1;*i<*contstruct;*i=*i+1)
                         p=p+1;   
                     adiciona(p);
                 }
                 printf("Registro adicionado!\n\n");
-                p=contstruct+1;
-                break;
+                p=(struct pessoa*)contstruct+1;
+            break;
 
             case 2:
-                printf("Digite o indice da pessoa a remover:");
-                scanf("%d",menu);
-                if(*menu==*contstruct)
-                {
-                    *contstruct=*contstruct-1;
-                    buffer=realloc(buffer,(sizeof(int)*3+sizeof(struct pessoa)*(*contstruct)));
+                if (*contstruct == 0)
+                    printf("Nao ha contatos para remover.\n");
+                else
+                {               
+                    printf("Digite o indice da pessoa a remover:");
+                    scanf("%d",menu);
+                    if(*contstruct==1)
+                    {
+                        *contstruct=*contstruct-1;
+                        buffer=realloc(buffer,(sizeof(int)*3+sizeof(struct pessoa)*(*contstruct)));
+                    }
+                    else
+                    {              
+                        p1=p;
+                        for(*i=1;*i<*menu;*i=*i+1)
+                            p1=p1+1;
+                        p2=p1+1;
+                        for(*i=1;*i<=(*contstruct-*menu);*i=*i+1)
+                        {
+                            strcpy(p1->nome,p2->nome);
+                            p1->idade=p2->idade;
+                            p1->matricula=p2->matricula;
+                            p1=p1+1;
+                            p2=p2+1;
+                        }
+                        *contstruct=*contstruct-1;
+                        buffer=realloc(buffer,(sizeof(int)*3+sizeof(struct pessoa)*(*contstruct)));
+                    }
                 }
-                p1=p;
-                for(*i=1;*i<*menu;*i=*i+1)
-                    p1=p1+1;
-                p2=p1+1;
-                for(*i=1;*i<=(*contstruct-*menu);*i=*i+1)
-                {
-                    strcpy(p1->nome,p2->nome);
-                    p1->idade=p2->idade;
-                    p1->matricula=p2->matricula;
-                    p1=p1+1;
-                    p2=p2+1;
-                }
-                *contstruct=*contstruct-1;
-                buffer=realloc(buffer,(sizeof(int)*3+sizeof(struct pessoa)*(*contstruct)));
                 *menu=0;
-                break;
+            break;
 
             case 3:
                 if(*contstruct==0) 
                     printf("Agenda vazia.\n");
                 else
                 {
-                    p=contstruct+1; //garantindo que o P vai estar apontado para o inicio
+                    p=(struct pessoa*)contstruct+1; //garantindo que o P vai estar apontado para o inicio
                     for(*i=1;*i<=*contstruct;*i=*i+1)
                     {
                         printf("==== Pessoa %d ====\n",*i);
@@ -99,14 +107,16 @@ void main()
                         printf("Matricula: %d\n",p->matricula);
                         p=p+1;
                     }
-                    p=contstruct+1; //reapontando o P para o inicio
+                    p=(struct pessoa*)contstruct+1; //reapontando o P para o inicio
                 }
                 printf("\n");
-                break;
+            break;
 
             default:
                 printf("Comando invalido!\n");
-                break;
+            break;
         }
     } while(*menu!=4);
+
+    free(buffer);
 }
