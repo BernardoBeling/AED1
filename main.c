@@ -268,8 +268,7 @@ void main()
             case 5:
                 search(buffer,menu,i,j,contstruct,p,p1);
             break;
-
-            
+ 
             case 6:
                 sortByName(buffer,menu,i,j,contstruct,p,p1,p2);
             break;
