@@ -2,17 +2,20 @@
   "tasks": [
     {
       "type": "shell",
-      "label": "gcc build active file",
-      "command": "/usr/bin/gcc",
+      "label": "Compilar C",
+      "command": "gcc",
       "args": [
         "-g",
         "${file}",
         "-o",
         "${fileDirname}/${fileBasenameNoExtension}"
       ],
-      "options": {
-        "cwd": "/usr/bin"
-      }
+      
+    }
+    {
+      "label": "Run C",
+      "type": "shell",
+      "command": ".\\${fileBasenameNoExtension}.exe",  
     }
   ],
   "version": "2.0.0"

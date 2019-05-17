@@ -126,25 +126,19 @@ void selectSortById(void* buffer,int* menu,int* i,int* j,int* contstruct,struct 
     {
         for(*j=*i+1;*j<*contstruct;*j=*j+1)
         {
-            if(p2->idade > p1->idade)
+            if(p2->idade < p1->idade)
             {
                 p=p2; //aponta o p pro menor
                 *menu=1;
             }
             p2=p2+1;
         }
-            if(*menu=1)
+            if(*menu==1)
             {
                 p2=contstruct+(sizeof(struct pessoa)*(*contstruct)+1); //aponta o p2 pra struct temp
-                strcpy(p2->nome,p1->nome);
-                p2->idade=p1->idade;
-                p2->matricula=p1->matricula;
-                strcpy(p1->nome,p->nome);
-                p1->idade=p->idade;
-                p1->matricula=p->matricula;
-                strcpy(p->nome,p2->nome);
-                p->idade=p2->idade;
-                p->matricula=p2->matricula;
+                *(p2)=*(p1);               
+                *(p1)=*(p);              
+                *(p)=*(p2);
                 *menu=0;
             }
         p1=p1+1;
@@ -172,18 +166,12 @@ void sortByAge(void* buffer,int* menu,int* i,int* j,int* contstruct,struct pesso
             {
                 for(*menu=*j+1;*menu<=*contstruct;*menu=*menu+1) //faz o p2 ir pra nova posicao alocada (temp)
                     p2=p2+1;
-                strcpy(p2->nome,p1->nome);  //joga os dados do p1 pra temp
-                p2->matricula=p1->matricula;
-                p2->idade=p1->idade;
+                *(p2)=*(p1);
                 p2=p+*j;    //re aponta o p2 pra dps do p1
-                strcpy(p1->nome,p2->nome);  //passa os dados do p2 pra p1
-                p1->matricula=p2->matricula;
-                p1->idade=p2->idade;
+                *(p1)=*(p2);
                 for(*menu=*i;*menu<=*contstruct;*menu=*menu+1) //faz o p1 ir pra temp
                     p1=p1+1;
-                strcpy(p2->nome,p1->nome);  //passa os dados da temp pro p2
-                p2->matricula=p1->matricula;
-                p2->idade=p1->idade;
+                *(p2)=*(p1);
                 p1=p+(*i-1);    //re aponta o p1 pra onde estava
             }
             p2=p2+1;
@@ -287,7 +275,7 @@ void main()
             break;
             
             case 7:
-                selectS6ortById(buffer,menu,i,j,contstruct,p,p1,p2);
+                selectSortById(buffer,menu,i,j,contstruct,p,p1,p2);
             break;
 
             case 8:
