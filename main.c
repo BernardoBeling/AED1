@@ -200,18 +200,12 @@ void sortByName(void* buffer,int* menu,int* i,int* j,int* contstruct,struct pess
             {
                 for(*menu=*j+1;*menu<=*contstruct;*menu=*menu+1) //faz o p2 ir pra nova posicao alocada (temp)
                     p2=p2+1;
-                strcpy(p2->nome,p1->nome);  //joga os dados do p1 pra temp
-                p2->matricula=p1->matricula;
-                p2->idade=p1->idade;
+                *(p2)=*(p1);
                 p2=p+*j;    //re aponta o p2 pra dps do p1
-                strcpy(p1->nome,p2->nome);  //passa os dados do p2 pra p1
-                p1->matricula=p2->matricula;
-                p1->idade=p2->idade;
+                *(p1)=*(p2);
                 for(*menu=*i;*menu<=*contstruct;*menu=*menu+1) //faz o p1 ir pra temp
                     p1=p1+1;
-                strcpy(p2->nome,p1->nome);  //passa os dados da temp pro p2
-                p2->matricula=p1->matricula;
-                p2->idade=p1->idade;
+                *(p2)=*(p1);
                 p1=p+(*i-1);    //re aponta o p1 pro inicio
             }
             p2=p2+1;
