@@ -151,6 +151,7 @@ void selectSortById(void* buffer,int* menu,int* i,int* j,int* contstruct,struct 
     *menu=0;
 }
 
+<<<<<<< HEAD
 void quickSortByAge(void* buffer,int* menu,int* i,int* j,int* contstruct,struct pessoa* p,struct pessoa* p1, struct pessoa* p2)
 {
     buffer=realloc(buffer,sizeof(int)*4+sizeof(struct pessoa)*(*contstruct)+1);
@@ -174,6 +175,40 @@ void quickSortByAge(void* buffer,int* menu,int* i,int* j,int* contstruct,struct 
 
     }
     
+=======
+void sortByAge(void* buffer,int* menu,int* i,int* j,int* contstruct,struct pessoa* p,struct pessoa* p1, struct pessoa* p2)
+{
+    buffer=realloc(buffer,(sizeof(int)*4+sizeof(struct pessoa)*(*contstruct+1)));
+    aponta(&buffer,&menu,&i,&j,&contstruct);
+    p=contstruct+1;
+    p1=p;
+    p2=p1+1;
+    for(*i=1;*i<=*contstruct;*i=*i+1)
+    {
+        for(*j=*i;*j<=*contstruct;*j=*j+1)
+        {
+            if(p1->idade > p2->idade)
+            {
+                for(*menu=*j+1;*menu<=*contstruct;*menu=*menu+1) //faz o p2 ir pra nova posicao alocada (temp)
+                    p2=p2+1;
+                *(p2)=*(p1);
+                p2=p+*j;    //re aponta o p2 pra dps do p1
+                *(p1)=*(p2);
+                for(*menu=*i;*menu<=*contstruct;*menu=*menu+1) //faz o p1 ir pra temp
+                    p1=p1+1;
+                *(p2)=*(p1);
+                p1=p+(*i-1);    //re aponta o p1 pra onde estava
+            }
+            p2=p2+1;
+        }
+        p1=p1+1;
+        p2=p1+1;
+    }
+    buffer=realloc(buffer,(sizeof(int)*4+sizeof(struct pessoa)*(*contstruct)));
+    aponta(&buffer,&menu,&i,&j,&contstruct);
+    p=contstruct+1;
+    *menu=0;
+>>>>>>> 07ed634a9c090995d1e25ac96e06eaf265ea62eb
 }
 
 void sortByName(void* buffer,int* menu,int* i,int* j,int* contstruct,struct pessoa* p,struct pessoa* p1, struct pessoa* p2)
